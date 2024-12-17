@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -98,5 +99,19 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::on_actionClose_triggered()
 {
     this->close();
+}
+
+
+void MainWindow::on_actionAnalize_triggered()
+{
+    sintac.lex->setCad(ui->textEditor->toPlainText().toStdString());
+    sintac.lex->scanner();
+    sintac.analizar();
+    for(staInProd e:sintac.si){
+        ui->tableDisplay->insertRow(ui->tableDisplay->rowCount());
+        ui->tableDisplay->setItem(ui->tableDisplay->rowCount()-1,0,new QTableWidgetItem(QString::fromStdString(e.stack)));
+        ui->tableDisplay->setItem(ui->tableDisplay->rowCount()-1,1,new QTableWidgetItem(QString::fromStdString(e.input)));
+        ui->tableDisplay->setItem(ui->tableDisplay->rowCount()-1,2,new QTableWidgetItem(QString::fromStdString(e.prod)));
+    }
 }
 

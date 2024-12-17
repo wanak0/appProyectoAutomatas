@@ -2,10 +2,32 @@
 
 bool Lexico::isId()
 {
-
+    int n,m,found = false;
+    int iAux;
+    //fseek(Fd,(long)iniToken,SEEK_SET);
+    iAux=tokenBeg;
+    for (m=tokenBeg, n=0; m<i ; m++, n++)
+        sLexema[n]=cad[iAux++];
+        //fread(&sLexema[n],sizeof(char),1, Fd);
+    sLexema[n]= '\0';
+    for (m=0 ; m < 4 && !found ;)
+        if (strcmp(rsvWrd[m], sLexema)==0)
+            found = true;
+        else
+            m++;
+    return (found ? 0 : 1);
 }
 
 Lexico::Lexico() {}
+
+string Lexico::Tokens()
+{
+    string hom;
+    for(int j=0;j<=k;j++){
+        hom.append(asTokens[j]);
+    }
+    return hom;
+}
 
 bool Lexico::accptStt()
 {
@@ -108,9 +130,9 @@ void Lexico::scanner()
     i = tokenBeg = k = 0;
     iniStts();
 
-    while(i < (int)strlen(cad) || accpStt()){
+    while(i < (int)strlen(cad) || accptStt()){
         switch(actStt){
-        case 0: cCarent=nextChar();
+        case 0: cCarent=nxtChar();
             if (strchr(non,cCarent))
                 actStt = 1;
             else
@@ -123,7 +145,7 @@ void Lexico::scanner()
                         fail();
             break;
 
-        case 1: cCarent=nextChar();
+        case 1: cCarent=nxtChar();
             if(strchr(non,cCarent))
                 actStt=1;
             else
@@ -135,7 +157,7 @@ void Lexico::scanner()
                     fail();
             break;
 
-        case 2: cCarent=nextChar();
+        case 2: cCarent=nxtChar();
             if(strchr(non,cCarent))
                 actStt=1;
             else
@@ -155,7 +177,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 4: cCarent=nextChar();
+        case 4: cCarent=nxtChar();
             switch(cCarent){
             case '+': actStt=5; break;
             case '-': actStt=6; break;
@@ -194,7 +216,7 @@ void Lexico::scanner()
             break;
 
 
-        case 9: cCarent=nextChar();
+        case 9: cCarent=nxtChar();
             if (strchr(par,cCarent))
                 actStt=10;
             else
@@ -206,7 +228,7 @@ void Lexico::scanner()
                     fail();
             break;
 
-        case 10: cCarent=nextChar();
+        case 10: cCarent=nxtChar();
             if (strchr(par,cCarent))
                 actStt=10;
             else
@@ -218,7 +240,7 @@ void Lexico::scanner()
                     fail();
             break;
 
-        case 11 : cCarent=nextChar();
+        case 11 : cCarent=nxtChar();
             if (strchr(non,cCarent))
                 actStt=11;
             else
@@ -239,14 +261,14 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 13: cCarent=nextChar();
+        case 13: cCarent=nxtChar();
             if ((isalpha(cCarent)|| cCarent=='_'))
                 actStt=14;
             else
                 fail();
             break;
 
-        case 14: cCarent=nextChar();
+        case 14: cCarent=nxtChar();
             if ((isalpha(cCarent)|| cCarent=='_') || isdigit(cCarent))
                 actStt=14;
             else
@@ -266,7 +288,7 @@ void Lexico::scanner()
             break;
 
 
-        case 16: cCarent=nextChar();
+        case 16: cCarent=nxtChar();
             if(cCarent==';')
                 actStt=17;
             else
@@ -284,7 +306,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 18: cCarent=nextChar();
+        case 18: cCarent=nxtChar();
             if(cCarent=='[')
                 actStt=19;
             else
@@ -298,7 +320,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 20: cCarent=nextChar();
+        case 20: cCarent=nxtChar();
             if(cCarent==']')
                 actStt=21;
             else
@@ -312,7 +334,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 22: cCarent = nextChar();
+        case 22: cCarent = nxtChar();
             if(cCarent == ',')
                 actStt=23;
             else
@@ -326,14 +348,14 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 24: cCarent = nextChar();
+        case 24: cCarent = nxtChar();
             if (('"' == cCarent) && cCarent)
                 actStt=25;
             else
                 fail();
             break;
 
-        case 25: cCarent=nextChar();
+        case 25: cCarent=nxtChar();
             if (('"' != cCarent) && cCarent)
                 actStt=25;
             else
@@ -348,7 +370,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 27: cCarent=nextChar();
+        case 27: cCarent=nxtChar();
             if(cCarent == '(')
                 actStt=28;
             else
@@ -362,7 +384,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 29:cCarent=nextChar();
+        case 29:cCarent=nxtChar();
             if(cCarent == ')')
                 actStt=30;
             else
@@ -376,7 +398,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 31: cCarent = nextChar();
+        case 31: cCarent = nxtChar();
             if(cCarent == '{')
                 actStt = 32;
             else
@@ -390,7 +412,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 33: cCarent = nextChar();
+        case 33: cCarent = nxtChar();
             if(cCarent == '}')
                 actStt = 34;
             else
@@ -404,7 +426,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 35: cCarent = nextChar();
+        case 35: cCarent = nxtChar();
             if(cCarent == '=')
                 actStt = 36;
             else
@@ -418,7 +440,7 @@ void Lexico::scanner()
             iniStts();
             break;
 
-        case 37: cCarent=nextChar();
+        case 37: cCarent=nxtChar();
             if (strchr(non,cCarent))
                 actStt = 38;
             else
@@ -427,7 +449,7 @@ void Lexico::scanner()
                 else
                     fail();
             break;
-        case 38: cCarent=nextChar();
+        case 38: cCarent=nxtChar();
             if(strchr(non,cCarent))
                 actStt=38;
             else
@@ -437,7 +459,7 @@ void Lexico::scanner()
                     actStt=40;
             break;
 
-        case 39: cCarent=nextChar();
+        case 39: cCarent=nxtChar();
             if(strchr(non,cCarent))
                 actStt=38;
             else

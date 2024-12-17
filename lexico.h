@@ -7,6 +7,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Lexico
@@ -17,6 +18,8 @@ class Lexico
     //(realmente seria muy dificil que llegue hasta
     //aqui si no son caracteres)
     char cad[500];
+    //Arreglo de numeros pares y nones
+    char non[6]="13579", par[6]="24680";
     //este Lexema es utilizado en el metodo isId()
     char sLexema[127];
     // variable indice, estado actual (Actual State)
@@ -35,6 +38,9 @@ public:
     Lexico();
     //Arreglo de Tokens (se manda al Sintactico)
     char asTokens [100][100];
+    //El metodo Tokens es para usarlo para hacer display de
+    //los tokens que se encuentran en el arreglo
+    string Tokens();
     // Metodo Estado Aceptacion
     bool accptStt();
     //Metodo de fallo para el automata

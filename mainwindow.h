@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    Sintactico sintac;
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
@@ -32,6 +33,8 @@ private slots:
     void on_actionOpen_triggered();
 
     void on_actionClose_triggered();
+
+    void on_actionAnalize_triggered();
 
 private:
     Ui::MainWindow *ui;
