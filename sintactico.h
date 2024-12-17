@@ -14,7 +14,7 @@ class Sintactico
 {
 
     //Pila para el Analisis Sintactico
-    Pila <string> *pila();
+    Pila <string> *pila;
     // el arreglo "token" es referencia al conjunto Vt en la gramatica
     // este conjunto contiene todos los terminales
     char token[22][8] = {"x", ";", ",", "*", "Id", "[", "]", "Num", "char", "int", "float",

@@ -1,5 +1,5 @@
 #include "sintactico.h"
-
+#include "pila.h"
 
 
 int Sintactico::isToken(char x[])
@@ -45,9 +45,6 @@ int Sintactico::buscaTabla(char a[], char x[])
     return 999;
 }
 
-void mostrarPila() {
-
-}
 
 Sintactico::Sintactico() {
 
