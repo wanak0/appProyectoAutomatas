@@ -18,6 +18,7 @@ void MainWindow::on_actionNew_triggered()
 {
     ui->textEditor->clear();
     ui->tableDisplay->clearContents();
+    ui->tableDisplay->setRowCount(0);
     ui->labelFileName->setText("");
 }
 
@@ -74,25 +75,28 @@ void MainWindow::on_actionOpen_triggered()
     //el metodo getOpenfileName() nos regresa un QString con: path+name
                                                     // sustituir ruta en caso de ser necesario
     QString fich=QFileDialog::getOpenFileName(this,"","/Users/user/Documents");
-    //usando ifstream le pasamos ese nombre, sin olvidar de pasar el QString
-    //a std::string, debido a que este es el tipo parametro que acepta el constructor
-    ifstream file(fich.toStdString());
-    //se usan dos variables strings, la primera para leer los datos en la linea, la segunda
-    //para guardar las lineaS(plural) para tenerlo en todo
-    string data,lines;
-    //se muestra al usuario todo (la ruta y el nombre)
-    ui->labelFileName->setText(fich);
-    //si el el ifstream tiene algun error, se informa al usuario que el archivo no existe
-    if(file.fail())
-        QMessageBox::about(this,"ERROR","FILE DOESN'T EXISTS");
-    //ciclo para leer el archivo y formatearlo
-    while(!file.eof()){
-        getline(file,data);
-        lines.append(data);
-        lines.append("\n");
+    string z=fich.toStdString();
+    if(z!=""){
+        //usando ifstream le pasamos ese nombre, sin olvidar de pasar el QString
+        //a std::string, debido a que este es el tipo parametro que acepta el constructor
+        ifstream file(fich.toStdString());
+        //se usan dos variables strings, la primera para leer los datos en la linea, la segunda
+        //para guardar las lineaS(plural) para tenerlo en todo
+        string data,lines;
+        //se muestra al usuario todo (la ruta y el nombre)
+        ui->labelFileName->setText(fich);
+        //si el el ifstream tiene algun error, se informa al usuario que el archivo no existe
+        if(file.fail())
+            QMessageBox::about(this,"ERROR","FILE DOESN'T EXISTS");
+        //ciclo para leer el archivo y formatearlo
+        while(!file.eof()){
+            getline(file,data);
+            lines.append(data);
+            lines.append("\n");
+        }
+        ui->textEditor->insertPlainText(QString::fromStdString(lines));
     }
-    //se muestra el contenido del archivo el text editor
-    ui->textEditor->insertPlainText(QString::fromStdString(lines));
+
 }
 
 
@@ -109,9 +113,9 @@ void MainWindow::on_actionAnalize_triggered()
     sintac.lex->setCad(ui->textEditor->toPlainText().toStdString());
     sintac.lex->scanner();
     if(sintac.analizar())
-        QMessageBox::about(this,"Sintactico","sintaxis correcta");
+        QMessageBox::about(this,"Sintactico","Correct Syntax");
     else
-        QMessageBox::about(this,"sintactico","sintaxis incorrecta");
+        QMessageBox::about(this,"sintactico","Syntax Error");
     for(staInProd e:sintac.si){
         ui->tableDisplay->insertRow(ui->tableDisplay->rowCount());
         ui->tableDisplay->setItem(ui->tableDisplay->rowCount()-1,0,new QTableWidgetItem(QString::fromStdString(e.stack)));

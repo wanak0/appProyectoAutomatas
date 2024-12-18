@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Analizador Sintactico</string>
+   <string>Parser</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTableWidget" name="tableDisplay">
@@ -161,7 +161,7 @@
     <string>Analize</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Ctrl+1</string>
    </property>
   </action>
  </widget>
