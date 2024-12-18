@@ -104,9 +104,14 @@ void MainWindow::on_actionClose_triggered()
 
 void MainWindow::on_actionAnalize_triggered()
 {
+    ui->tableDisplay->clearContents();
+    ui->tableDisplay->setRowCount(0);
     sintac.lex->setCad(ui->textEditor->toPlainText().toStdString());
     sintac.lex->scanner();
-    sintac.analizar();
+    if(sintac.analizar())
+        QMessageBox::about(this,"Sintactico","sintaxis correcta");
+    else
+        QMessageBox::about(this,"sintactico","sintaxis incorrecta");
     for(staInProd e:sintac.si){
         ui->tableDisplay->insertRow(ui->tableDisplay->rowCount());
         ui->tableDisplay->setItem(ui->tableDisplay->rowCount()-1,0,new QTableWidgetItem(QString::fromStdString(e.stack)));

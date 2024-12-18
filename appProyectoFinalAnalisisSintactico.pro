@@ -12,11 +12,13 @@ SOURCES += \
     lexico.cpp \
     main.cpp \
     mainwindow.cpp \
+    pila.cpp \
     sintactico.cpp
 
 HEADERS += \
     lexico.h \
     mainwindow.h \
+    pila.h \
     sintactico.h
 
 FORMS += \

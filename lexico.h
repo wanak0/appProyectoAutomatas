@@ -25,7 +25,7 @@ class Lexico
     // variable indice, estado actual (Actual State)
     // estado inicial (initial State), inicio token (token beggining)
     // y k que en este caso lleva el indice del arreglo de tokens
-    int i, actStt, initStt, tokenBeg, k;
+    int i, actStt, initStt, tokenBeg;
     //Arreglo de Palabras Reservadas
     char rsvWrd[5][10]={"char","float","int","puts"};
     //Metodo para saber si una palabra es un
@@ -38,6 +38,7 @@ public:
     Lexico();
     //Arreglo de Tokens (se manda al Sintactico)
     char asTokens [100][100];
+    int k;
     //El metodo Tokens es para usarlo para hacer display de
     //los tokens que se encuentran en el arreglo
     string Tokens();

@@ -2,7 +2,6 @@
 #define PILA_H
 #include <string.h>
 #include <string>
-using namespace std;
 template <class T>
 class Pila
 {
@@ -15,7 +14,7 @@ public:
     bool isEmpt();
     bool isFull();
     T top();
-    string mostrar();
+    std::string mostrar();
 private:
     int tam,t;
     T *vec;

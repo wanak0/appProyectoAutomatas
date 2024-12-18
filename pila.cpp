@@ -65,9 +65,9 @@ T Pila<T>::top()
 }
 
 template<class T>
-string Pila<T>::mostrar()
+std::string Pila<T>::mostrar()
 {
-    string sal;
+    std::string sal;
     for (int i = 0;i < t; i++) {
         sal.append(vec[i]);
     }

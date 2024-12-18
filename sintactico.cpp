@@ -1,6 +1,4 @@
 #include "sintactico.h"
-#include "pila.h"
-
 
 int Sintactico::isToken(char x[])
 {
@@ -45,20 +43,32 @@ int Sintactico::buscaTabla(char a[], char x[])
     return 999;
 }
 
+// string Sintactico::obtInp(char v[][],int R)
+// {
+//     string ret;
+//     for(int l=R;v[l]!=lex->k;l++){
+//         for(int C=0;v[R][C]!='\0';C++){
+//             ret.append(v[R][C]);
+//         }
+//     }
+//     return ret;
+// }
+
 
 Sintactico::Sintactico() {
-
+    this->lex=new Lexico;
 }
 
 bool Sintactico::analizar()
 {
-    pila=new Pila<string>(1000);
+    si.clear();
+    Pila<std::string>*pila=new Pila<std::string>(1000);
     struct staInProd aux;
     int ip=0, i, j;
     int renglon, iast;
     char x[10], a[10];
     pila->push("$");
-    string prod;
+    string prod,inp;
 
     if(strcmp(lex->asTokens[ip], "puts") == 0)
         pila->push("F");
@@ -68,14 +78,18 @@ bool Sintactico::analizar()
     //aux.stack=pila->mostrar();
     for(i=0; strcmp(lex->asTokens[i], "$") != 0; i++){
         printf("%s ", lex->asTokens[i]);
-        aux.input=lex->asTokens[i];
+        aux.input.append(lex->asTokens[i]);
     }
     do
     {
         aux.stack=pila->mostrar();
+        prod="";
+        inp="";
         strcpy(x, pila->top().c_str());
         strcpy(a, lex->asTokens[ip]);
-
+        for(int N=ip;N<lex->k;N++){
+            aux.input.append(lex->asTokens[N]);
+        }
         if(isToken(x) || (strcmp(x, "$") == 0))
         {
             if(strcmp(x, a) == 0)
@@ -100,12 +114,12 @@ bool Sintactico::analizar()
 
             if(renglon != 999)
             {
+
                 pila->pop();
                 iast = 0;
                 printf("%-3s -> ", varsint[tablaM[renglon][0]]);
-                prod.append("->");
                 prod.append(varsint[tablaM[renglon][0]]);
-
+                prod.append("->");
 
                 for(j= 3; iast!=999; j++)
                 {
@@ -124,7 +138,7 @@ bool Sintactico::analizar()
                         }
                     }
                 }
-
+                aux.input=inp;
                 aux.prod=prod;
                 printf("\n");
 
@@ -139,6 +153,7 @@ bool Sintactico::analizar()
                     else
                         pila->push(varsint[iast]);
                 }
+                aux.input=inp;
             }
             else
             {
