@@ -18,7 +18,7 @@ class Sintactico
     // el arreglo "token" es referencia al conjunto Vt en la gramatica
     // este conjunto contiene todos los terminales
     char token[22][8] = {"x", ";", ",", "*", "Id", "[", "]", "Num", "char", "int", "float",
-                         "puts", "(", ")", "Cte.Lit", "{", "}", "=","+","-","/", "numreal"};
+                         "puts", "(", ")", "Cte.Lit", "{", "}", "=","+","-","/", "Real"};
     // el arreglo varsint hace referencia al conjunto Vn de la gramatica
     // que son los no-terminales de la gramatica
     char varsint[15][3]={"x", "D", "L", "L'", "I", "I'", "A", "A'", "K",

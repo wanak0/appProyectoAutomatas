@@ -118,7 +118,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Analizador Sintactico", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Parser", nullptr));
         actionSave->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
 #if QT_CONFIG(shortcut)
         actionSave->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+S", nullptr));
