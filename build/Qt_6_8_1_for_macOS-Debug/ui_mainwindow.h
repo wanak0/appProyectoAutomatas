@@ -137,6 +137,9 @@ public:
 #endif // QT_CONFIG(shortcut)
         actionClose->setText(QCoreApplication::translate("MainWindow", "Close", nullptr));
         actionAnalize->setText(QCoreApplication::translate("MainWindow", "Analize", nullptr));
+#if QT_CONFIG(shortcut)
+        actionAnalize->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+A", nullptr));
+#endif // QT_CONFIG(shortcut)
         QTableWidgetItem *___qtablewidgetitem = tableDisplay->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Stack", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableDisplay->horizontalHeaderItem(1);

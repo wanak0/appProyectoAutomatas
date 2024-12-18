@@ -68,7 +68,7 @@ bool Sintactico::analizar()
     int renglon, iast;
     char x[10], a[10];
     pila->push("$");
-    string prod,inp;
+    string prod,inp,inpaux;
 
     if(strcmp(lex->asTokens[ip], "puts") == 0)
         pila->push("F");
@@ -78,18 +78,22 @@ bool Sintactico::analizar()
     //aux.stack=pila->mostrar();
     for(i=0; strcmp(lex->asTokens[i], "$") != 0; i++){
         printf("%s ", lex->asTokens[i]);
-        aux.input.append(lex->asTokens[i]);
     }
     do
     {
+        inpaux=inp;
         aux.stack=pila->mostrar();
         prod="";
+
         inp="";
         strcpy(x, pila->top().c_str());
         strcpy(a, lex->asTokens[ip]);
         for(int N=ip;N<lex->k;N++){
-            aux.input.append(lex->asTokens[N]);
+            printf("%s ",lex->asTokens[N]);
+            inp.append(lex->asTokens[N]);
         }
+        printf("\n");
+        aux.input=inp;
         if(isToken(x) || (strcmp(x, "$") == 0))
         {
             if(strcmp(x, a) == 0)
@@ -138,7 +142,6 @@ bool Sintactico::analizar()
                         }
                     }
                 }
-                aux.input=inp;
                 aux.prod=prod;
                 printf("\n");
 
@@ -153,7 +156,6 @@ bool Sintactico::analizar()
                     else
                         pila->push(varsint[iast]);
                 }
-                aux.input=inp;
             }
             else
             {

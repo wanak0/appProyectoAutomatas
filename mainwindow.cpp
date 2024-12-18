@@ -49,7 +49,7 @@ void MainWindow::on_actionSave_As_triggered()
 {
     //instanciamos un objeto QFile, que en si es para poder acceder y crear archivos desde el IDE
     //QFile f=QFileDialog::getSaveFileName(this,tr("Save file"),QDir::currentPath(),tr(".txt(*.txt)"));
-    QString name=QFileDialog::getSaveFileName(this,"Save as...","/Users/user/Documents",tr(".txt(*.txt)"));
+    QString name=QFileDialog::getSaveFileName(this,"Save as...","/Users/user/Documents",tr(".dat(*.dat)"));
     ui->labelFileName->setText(name);
     QFile f(name);
     //lo abrimos con el IODevice WriteOnly, para solamente escribir en el
